@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:huddle/features/app/model/contact_group_model.dart';
+import 'package:huddle/features/app/model/group_model.dart';
 import 'package:huddle/global/common/custom_app_bar.dart';
 
 import '../widgets/global_bottom_app_bar_widget.dart';
@@ -13,7 +13,7 @@ class GroupViewer extends StatefulWidget {
 }
 
 class _GroupViewerState extends State<GroupViewer> {
-  ContactGroupModel model = ContactGroupModel.instance;
+  GroupModel model = GroupModel.instance;
 
   @override
   Widget build(BuildContext context) {

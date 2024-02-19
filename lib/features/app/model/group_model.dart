@@ -2,9 +2,9 @@ import 'dart:collection';
 
 import 'package:contacts_service/contacts_service.dart';
 
-class ContactGroupModel {
-  ContactGroupModel._();
-  static final ContactGroupModel instance = ContactGroupModel._();
+class GroupModel {
+  GroupModel._();
+  static final GroupModel instance = GroupModel._();
 
   Map<String, List<Contact>> groups = HashMap();
 
