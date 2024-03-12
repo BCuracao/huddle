@@ -4,7 +4,10 @@ import 'package:huddle/features/app/presentation/pages/sign_up_page.dart';
 import 'package:huddle/features/app/presentation/widgets/form_container_widget.dart';
 import 'package:huddle/global/common/toast.dart';
 
+import '../../model/group_model.dart';
 import '../../user_auth/firebase_auth_implementation/firebase_auth_services.dart';
+
+final groupModelInstance = GroupModel.instance;
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -137,13 +140,17 @@ class _LoginPageState extends State<LoginPage> {
 
     User? user = await _auth.signInWithEmailAndPassword(email, password);
 
-    if (user != null) {
-      showToast(message: "User is successfully signedIn");
-      // ignore: use_build_context_synchronously
-      Navigator.pushNamed(context, "/home");
-    } else {
-      showToast(message: "Some error happened");
-    }
+    groupModelInstance.getUserGroups(user!.uid).then((groupDocs) {
+      for (var doc in groupDocs) {
+        groupModelInstance.groupData = doc.data();
+      }
+    }).catchError((error) {
+      print("Error getting groups:  + $error");
+    });
+
+    showToast(message: "User is successfully signedIn");
+    // ignore: use_build_context_synchronously
+    Navigator.pushNamed(context, "/home");
 
     setState(() {
       _isLoading = false;

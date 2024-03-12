@@ -37,17 +37,35 @@ class _EventCreationPageState extends State<EventCreationPage> {
     });
   }
 
-  TextEditingController _dateController = TextEditingController();
+  final TextEditingController _dateController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const EventCreationPage(),
+            ),
+            ((route) => false),
+          );
+        },
+        shape: const CircleBorder(),
+        backgroundColor: Colors.grey.shade600.withOpacity(0.5),
+        elevation: 0,
+        child: const Icon(
+          Icons.event,
+          color: Colors.white,
+        ),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       extendBodyBehindAppBar: true,
-      appBar: const CustomAppBar(
-        title: "Custom App Bar",
+      appBar: CustomAppBar(
         leading: Icon(
           Icons.home,
-          color: Colors.white,
+          color: Colors.grey.shade600.withOpacity(0.5),
         ),
         showActionIcon: true,
       ),
@@ -55,11 +73,8 @@ class _EventCreationPageState extends State<EventCreationPage> {
       body: Container(
         width: double.infinity,
         padding: const EdgeInsets.only(top: 200.0),
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-              colors: [Colors.cyan, Colors.white],
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter),
+        decoration: BoxDecoration(
+          color: Colors.grey.shade600.withOpacity(0.25),
         ),
         child: SizedBox(
           height: MediaQuery.of(context).size.height,
@@ -137,24 +152,6 @@ class _EventCreationPageState extends State<EventCreationPage> {
                               },
                             );
                           },
-                        ),
-                      ),
-                      GestureDetector(
-                        onTap: () {
-                          _createEvent();
-                        },
-                        child: SizedBox(
-                          height: 45,
-                          width: 100,
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: Colors.blue,
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            child: const Center(
-                              child: Text("Done"),
-                            ),
-                          ),
                         ),
                       ),
                     ],

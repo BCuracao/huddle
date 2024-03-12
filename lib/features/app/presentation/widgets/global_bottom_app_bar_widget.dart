@@ -2,10 +2,6 @@ import 'dart:ui';
 
 import 'package:contacts_service/contacts_service.dart';
 import 'package:flutter/material.dart';
-import 'package:huddle/features/app/presentation/pages/home_page.dart';
-
-import '../pages/contacts_selector.dart';
-import '../pages/group_viewer.dart';
 
 class GlobalBottomAppBarWidget extends StatefulWidget {
   const GlobalBottomAppBarWidget({super.key});
@@ -39,7 +35,7 @@ class _GlobalBottomAppBarWidgetState extends State<GlobalBottomAppBarWidget> {
                   color: Colors.white,
                 ),
                 onPressed: () {
-                  setState(() {});
+                  Navigator.of(context).pushNamed("/home");
                 },
               ),
               IconButton(
@@ -47,17 +43,7 @@ class _GlobalBottomAppBarWidgetState extends State<GlobalBottomAppBarWidget> {
                   Icons.search,
                   color: Colors.white,
                 ),
-                onPressed: () {
-                  setState(() {
-                    Navigator.pushAndRemoveUntil(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const HomePage(),
-                      ),
-                      ((route) => false),
-                    );
-                  });
-                },
+                onPressed: () {},
               ),
               IconButton(
                 icon: const Icon(
@@ -65,15 +51,11 @@ class _GlobalBottomAppBarWidgetState extends State<GlobalBottomAppBarWidget> {
                   color: Colors.white,
                 ),
                 onPressed: () {
-                  setState(() {
-                    Navigator.pushAndRemoveUntil(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const GroupViewer(),
-                      ),
-                      ((route) => false),
-                    );
-                  });
+                  if (ModalRoute.of(context)?.settings.name == "/groups") {
+                    Navigator.of(context).pop();
+                  } else {
+                    Navigator.of(context).pushNamed("/groups");
+                  }
                 },
               ),
               Column(
@@ -95,16 +77,17 @@ class _GlobalBottomAppBarWidgetState extends State<GlobalBottomAppBarWidget> {
   }
 
   void showContacts() async {
-    final List<Contact> selectedContacts = await Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => ContactsSelector()),
-    );
-
-    if (selectedContacts != null) {
-      setState(() {
-        userGroup = selectedContacts;
-        printSelectedContacts(); // Print selected contacts to console
-      });
+    if (ModalRoute.of(context)?.settings.name == "/contacts") {
+      Navigator.of(context).pop();
+    } else {
+      final List<Contact>? selectedContacts =
+          await Navigator.of(context).pushNamed("/contacts") as List<Contact>?;
+      if (selectedContacts != null) {
+        setState(() {
+          userGroup = selectedContacts;
+          printSelectedContacts(); // Print selected contacts to console
+        });
+      }
     }
   }
 

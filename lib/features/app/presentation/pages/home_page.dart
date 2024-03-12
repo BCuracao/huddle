@@ -38,81 +38,52 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.pushAndRemoveUntil(
-            context,
-            MaterialPageRoute(
-              builder: (context) => const EventCreationPage(),
-            ),
-            ((route) => false),
-          );
-        },
-        shape: const CircleBorder(),
-        backgroundColor: Colors.grey.shade600.withOpacity(0.5),
-        elevation: 0,
-        child: const Icon(
-          Icons.event,
-          color: Colors.white,
-        ),
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      extendBodyBehindAppBar: true,
-      appBar: CustomAppBar(
-        leading: Icon(
-          Icons.home,
-          color: Colors.grey.shade600.withOpacity(0.5),
-        ),
-        showActionIcon: true,
-      ),
-      bottomNavigationBar: const GlobalBottomAppBarWidget(),
-      body: _contacts != null
-          ? Container(
-              decoration: const BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage(
-                      "lib\\assets\\images\\huddle_background_1.png"),
-                  fit: BoxFit.cover,
-                ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const EventCreationPage(),
               ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  GestureDetector(
-                    onTap: () {},
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 25),
-                      child: Container(
-                        height: 45,
-                        decoration: BoxDecoration(
-                          color: Colors.blue,
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child: Center(
-                          child: TextField(
-                              controller: _eventTitleController,
-                              style: const TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold),
-                              onChanged: (text) {
-                                print("Event title changed");
-                              }),
-                        ),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 30,
-                  ),
-                  const Center(
-                    child: Text(
-                      "Welcome Home",
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 30,
-                  ),
+              ((route) => false),
+            );
+          },
+          shape: const CircleBorder(),
+          backgroundColor: Colors.grey.shade600.withOpacity(0.5),
+          elevation: 0,
+          child: const Icon(
+            Icons.event,
+            color: Colors.white,
+          ),
+        ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+        extendBodyBehindAppBar: true,
+        appBar: CustomAppBar(
+          leading: Icon(
+            Icons.home,
+            color: Colors.grey.shade600.withOpacity(0.5),
+          ),
+          showActionIcon: true,
+        ),
+        bottomNavigationBar: const GlobalBottomAppBarWidget(),
+        body: Container(
+          margin: const EdgeInsets.only(top: 120, left: 20),
+          child: const Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Text(
+                "New Events",
+                style: TextStyle(
+                    fontSize: 24,
+                    decoration: TextDecoration.underline,
+                    decorationStyle: TextDecorationStyle.dashed),
+              ),
+              SizedBox(
+                height: 30,
+              ),
+
+              /*
                   GestureDetector(
                     onTap: () {
                       FirebaseAuth.instance.signOut();
@@ -135,13 +106,10 @@ class _HomePageState extends State<HomePage> {
                       ),
                     ),
                   ),
-                ],
-              ),
-            )
-          : const Center(
-              child: CircularProgressIndicator(),
-            ),
-    );
+                  */
+            ],
+          ),
+        ));
   }
 
   Future<void> _askPermissions() async {

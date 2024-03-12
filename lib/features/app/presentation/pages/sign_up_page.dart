@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:huddle/features/app/model/user_model.dart';
 import 'package:huddle/features/app/user_auth/firebase_auth_implementation/firebase_auth_services.dart';
 import 'package:huddle/features/app/presentation/pages/login_page.dart';
 import 'package:huddle/features/app/presentation/widgets/form_container_widget.dart';
@@ -124,12 +125,10 @@ class _SignUpPageState extends State<SignUpPage> {
     User? user = await _auth.signUpWithEmailAndPassword(email, password);
     user?.updateDisplayName(_usernameController.text);
 
-    if (user != null) {
-      showToast(message: "User is successfully created");
-      // ignore: use_build_context_synchronously
-      Navigator.pushNamed(context, "/home");
-    } else {
-      showToast(message: "Some error happened");
-    }
+    UserModel(user!.email!, user.displayName!, user.uid);
+
+    showToast(message: "User is successfully created");
+    // ignore: use_build_context_synchronously
+    Navigator.pushNamed(context, "/home");
   }
 }

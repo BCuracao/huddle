@@ -1,9 +1,18 @@
+import 'dart:collection';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:huddle/features/app/model/group_model.dart';
+import 'package:huddle/features/app/presentation/pages/contacts_selector.dart';
 import 'package:huddle/global/common/custom_app_bar.dart';
 
 import '../widgets/global_bottom_app_bar_widget.dart';
 import 'event_creation_page.dart';
+
+// Retrieve FirebaseFirestore instance
+final firestoreInstance = FirebaseFirestore.instance;
+
+final groupModelInstance = GroupModel.instance;
 
 class GroupViewer extends StatefulWidget {
   const GroupViewer({super.key});
@@ -13,8 +22,6 @@ class GroupViewer extends StatefulWidget {
 }
 
 class _GroupViewerState extends State<GroupViewer> {
-  GroupModel model = GroupModel.instance;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -50,48 +57,85 @@ class _GroupViewerState extends State<GroupViewer> {
       bottomNavigationBar: const GlobalBottomAppBarWidget(),
       body: Padding(
         padding: const EdgeInsets.all(15.0),
-        child: ListView.builder(
-          itemCount: model.groups.length,
-          itemBuilder: (context, index) {
-            String groupName = model.groups.keys.elementAt(index);
-            return Container(
-              margin: const EdgeInsets.only(bottom: 15),
-              decoration: BoxDecoration(
-                border: Border.all(color: Colors.black),
-                borderRadius: BorderRadius.circular(25),
-              ),
-              height: 50,
-              child: GestureDetector(
-                onTap: () => showDialog<String>(
-                  context: context,
-                  builder: (BuildContext context) => Dialog(
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        const Text('This is a fullscreen dialog.'),
-                        const SizedBox(height: 15),
-                        TextButton(
-                          onPressed: () {
-                            Navigator.pop(context);
-                          },
-                          child: const Text('Close'),
-                        ),
-                      ],
+        child: FutureBuilder<List<QueryDocumentSnapshot<Map<String, dynamic>>>>(
+          future: groupModelInstance.getUserGroups(currentUserRef!.uid),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const CircularProgressIndicator();
+            } else if (snapshot.hasError) {
+              return Text('Error: ${snapshot.error}');
+            } else if (snapshot.hasData) {
+              return ListView.builder(
+                itemCount: snapshot.data!.length,
+                itemBuilder: (context, index) {
+                  Map<String, dynamic> group = snapshot.data![index].data();
+                  return Container(
+                    margin: const EdgeInsets.only(bottom: 15),
+                    decoration: BoxDecoration(
+                      border: Border.all(color: Colors.black),
+                      borderRadius: BorderRadius.circular(25),
+                      image: const DecorationImage(
+                          image: ExactAssetImage(
+                              "lib\\assets\\images\\group_background_crop_1.png"),
+                          fit: BoxFit.fill,
+                          opacity: 0.35),
                     ),
-                  ),
-                ),
-                child: Center(
-                  child: Text(
-                    groupName,
-                    style: const TextStyle(color: Colors.black),
-                  ),
-                ),
-              ),
-            );
+                    child: ListTile(
+                      onTap: () {
+                        showDialog<String>(
+                          context: context,
+                          builder: (BuildContext context) => Dialog(
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                const Text('Group Details'),
+                                const SizedBox(height: 15),
+                                Text(group
+                                    .toString()), // Display group details here
+                                TextButton(
+                                  onPressed: () {
+                                    Navigator.pop(context);
+                                  },
+                                  child: const Text('Close'),
+                                ),
+                              ],
+                            ),
+                          ),
+                        );
+                      },
+                      //title: Text(group['groupName'] ??
+                      //    'Unnamed Group'), // Assuming 'name' is a key in your group map
+                      title: Text(
+                        group.values.elementAt(0),
+                        style: TextStyle(fontSize: 20),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                  );
+                },
+              );
+            } else {
+              return const Text('No data');
+            }
           },
         ),
       ),
     );
+  }
+
+  Future<Map<String, dynamic>> renderUserGroups(String uid) async {
+    Map<String, dynamic> groupData = HashMap();
+    Future<List<QueryDocumentSnapshot<Map<String, dynamic>>>> Function(
+        String userId) groups = groupModelInstance.getUserGroups;
+    List<QueryDocumentSnapshot<Map<String, dynamic>>> groupSnapshots =
+        await groups(uid);
+
+    for (QueryDocumentSnapshot<Map<String, dynamic>> snapshot
+        in groupSnapshots) {
+      Map<String, dynamic> group = snapshot.data();
+      groupData.addAll(group);
+    }
+    return groupData;
   }
 }
