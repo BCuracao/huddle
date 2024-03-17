@@ -14,7 +14,8 @@ class EventCreationPage extends StatefulWidget {
 }
 
 class _EventCreationPageState extends State<EventCreationPage> {
-  List<Contact> _selectedContacts = [];
+  List<Contact> _availContacts = [];
+  List<Contact> _selecContacts = [];
 
   @override
   void initState() {
@@ -33,7 +34,7 @@ class _EventCreationPageState extends State<EventCreationPage> {
     Iterable<Contact> contacts =
         await ContactsService.getContacts(withThumbnails: false);
     setState(() {
-      _selectedContacts = contacts.toList();
+      _availContacts = contacts.toList();
     });
   }
 
@@ -44,19 +45,13 @@ class _EventCreationPageState extends State<EventCreationPage> {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.pushAndRemoveUntil(
-            context,
-            MaterialPageRoute(
-              builder: (context) => const EventCreationPage(),
-            ),
-            ((route) => false),
-          );
+          _createEvent(_selecContacts);
         },
         shape: const CircleBorder(),
         backgroundColor: Colors.grey.shade600.withOpacity(0.5),
         elevation: 0,
         child: const Icon(
-          Icons.event,
+          Icons.done_outline_rounded,
           color: Colors.white,
         ),
       ),
@@ -96,11 +91,12 @@ class _EventCreationPageState extends State<EventCreationPage> {
                       const Text(
                         "Create Event",
                         style: TextStyle(
-                            fontSize: 27, fontWeight: FontWeight.bold),
+                          fontSize: 24,
+                        ),
                         textAlign: TextAlign.center,
                       ),
                       const SizedBox(
-                        height: 40,
+                        height: 20,
                       ),
                       const Padding(
                         padding: EdgeInsets.symmetric(horizontal: 10),
@@ -140,15 +136,17 @@ class _EventCreationPageState extends State<EventCreationPage> {
                       SizedBox(
                         height: 300,
                         child: ListView.builder(
-                          itemCount: _selectedContacts.length,
+                          itemCount: _availContacts.length,
                           itemBuilder: (BuildContext context, int index) {
-                            Contact contact = _selectedContacts[index];
+                            Contact contact = _availContacts[index];
                             return ListTile(
                               title: Text(
                                   contact.displayName ?? 'No name available'),
                               onTap: () {
-                                // You can do something with the selected contact here
                                 print('Selected ${contact.displayName}');
+                                setState(() {
+                                  _selecContacts.add(contact);
+                                });
                               },
                             );
                           },
@@ -179,5 +177,5 @@ class _EventCreationPageState extends State<EventCreationPage> {
     }
   }
 
-  void _createEvent() {}
+  void _createEvent(List<Contact> selecContacts) {}
 }

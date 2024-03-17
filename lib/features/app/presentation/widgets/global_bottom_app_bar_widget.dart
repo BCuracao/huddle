@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:contacts_service/contacts_service.dart';
 import 'package:flutter/material.dart';
 
@@ -18,59 +16,57 @@ class _GlobalBottomAppBarWidgetState extends State<GlobalBottomAppBarWidget> {
   Widget build(BuildContext context) {
     return BottomAppBar(
       shape: const CircularNotchedRectangle(),
-      notchMargin: 5.0,
+      notchMargin: 2.5,
       clipBehavior: Clip.antiAlias,
-      color: Colors.grey.shade600.withOpacity(0.5),
+      elevation: 10,
+      color: Colors.transparent,
       child: SizedBox(
         height: kBottomNavigationBarHeight,
-        child: BackdropFilter(
-          filter: ImageFilter.blur(sigmaX: 10.0, sigmaY: 10.0),
-          child: Row(
-            mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: <Widget>[
-              IconButton(
-                icon: const Icon(
-                  Icons.home,
-                  color: Colors.white,
-                ),
-                onPressed: () {
-                  Navigator.of(context).pushNamed("/home");
-                },
+        child: Row(
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: <Widget>[
+            IconButton(
+              icon: const Icon(
+                Icons.home,
+                color: Colors.white,
               ),
-              IconButton(
-                icon: const Icon(
-                  Icons.search,
-                  color: Colors.white,
-                ),
-                onPressed: () {},
+              onPressed: () {
+                Navigator.of(context).pushNamed("/home");
+              },
+            ),
+            IconButton(
+              icon: const Icon(
+                Icons.search,
+                color: Colors.white,
               ),
-              IconButton(
-                icon: const Icon(
-                  Icons.groups_outlined,
-                  color: Colors.white,
-                ),
-                onPressed: () {
-                  if (ModalRoute.of(context)?.settings.name == "/groups") {
-                    Navigator.of(context).pop();
-                  } else {
-                    Navigator.of(context).pushNamed("/groups");
-                  }
-                },
+              onPressed: () {},
+            ),
+            IconButton(
+              icon: const Icon(
+                Icons.groups_outlined,
+                color: Colors.white,
               ),
-              Column(
-                children: [
-                  IconButton(
-                    icon: const Icon(
-                      Icons.group_add_outlined,
-                      color: Colors.white,
-                    ),
-                    onPressed: showContacts,
+              onPressed: () {
+                if (ModalRoute.of(context)?.settings.name == "/groups") {
+                  Navigator.of(context).pop();
+                } else {
+                  Navigator.of(context).pushNamed("/groups");
+                }
+              },
+            ),
+            Column(
+              children: [
+                IconButton(
+                  icon: const Icon(
+                    Icons.group_add_outlined,
+                    color: Colors.white,
                   ),
-                ],
-              ),
-            ],
-          ),
+                  onPressed: showContacts,
+                ),
+              ],
+            ),
+          ],
         ),
       ),
     );

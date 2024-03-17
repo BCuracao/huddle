@@ -38,78 +38,53 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            Navigator.pushAndRemoveUntil(
-              context,
-              MaterialPageRoute(
-                builder: (context) => const EventCreationPage(),
-              ),
-              ((route) => false),
-            );
-          },
-          shape: const CircleBorder(),
-          backgroundColor: Colors.grey.shade600.withOpacity(0.5),
-          elevation: 0,
-          child: const Icon(
-            Icons.event,
-            color: Colors.white,
-          ),
+      backgroundColor: Colors.transparent,
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const EventCreationPage(),
+            ),
+            ((route) => false),
+          );
+        },
+        shape: const CircleBorder(),
+        elevation: 12,
+        child: Image.asset(
+          "lib\\assets\\images\\icons\\icon_events_1.png",
         ),
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-        extendBodyBehindAppBar: true,
-        appBar: CustomAppBar(
-          leading: Icon(
-            Icons.home,
-            color: Colors.grey.shade600.withOpacity(0.5),
-          ),
-          showActionIcon: true,
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      extendBodyBehindAppBar: true,
+      appBar: CustomAppBar(
+        leading: Icon(
+          Icons.home,
+          color: Colors.grey.shade600.withOpacity(0.5),
         ),
-        bottomNavigationBar: const GlobalBottomAppBarWidget(),
-        body: Container(
-          margin: const EdgeInsets.only(top: 120, left: 20),
-          child: const Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Text(
-                "New Events",
-                style: TextStyle(
-                    fontSize: 24,
-                    decoration: TextDecoration.underline,
-                    decorationStyle: TextDecorationStyle.dashed),
-              ),
-              SizedBox(
-                height: 30,
-              ),
-
-              /*
-                  GestureDetector(
-                    onTap: () {
-                      FirebaseAuth.instance.signOut();
-                      Navigator.pushNamed(context, "/login");
-                      showToast(message: "Successfully signed out");
-                    },
-                    child: Container(
-                      height: 45,
-                      width: 100,
-                      decoration: BoxDecoration(
-                        color: Colors.blue,
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      child: const Center(
-                        child: Text(
-                          "Sign Out",
-                          style: TextStyle(
-                              color: Colors.white, fontWeight: FontWeight.bold),
-                        ),
-                      ),
-                    ),
-                  ),
-                  */
-            ],
-          ),
-        ));
+        showActionIcon: true,
+      ),
+      bottomNavigationBar: const GlobalBottomAppBarWidget(),
+      body: Container(
+        margin: const EdgeInsets.only(top: 120, left: 20),
+        child: const Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Text(
+              "New Events",
+              style: TextStyle(
+                  fontSize: 24,
+                  decoration: TextDecoration.underline,
+                  decorationStyle: TextDecorationStyle.dashed),
+            ),
+            SizedBox(
+              height: 30,
+            ),
+          ],
+        ),
+      ),
+    );
   }
 
   Future<void> _askPermissions() async {
