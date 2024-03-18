@@ -1,5 +1,6 @@
 import 'package:contacts_service/contacts_service.dart';
 import 'package:flutter/material.dart';
+import 'package:huddle/features/app/model/event_model.dart';
 import 'package:huddle/features/app/presentation/widgets/form_container_widget.dart';
 import 'package:permission_handler/permission_handler.dart';
 
@@ -16,11 +17,19 @@ class EventCreationPage extends StatefulWidget {
 class _EventCreationPageState extends State<EventCreationPage> {
   List<Contact> _availContacts = [];
   List<Contact> _selecContacts = [];
+  late DateTime date;
 
   @override
   void initState() {
     super.initState();
     _checkPermissions();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _dateController.dispose();
+    _titleController.dispose();
   }
 
   _checkPermissions() async {
@@ -39,6 +48,7 @@ class _EventCreationPageState extends State<EventCreationPage> {
   }
 
   final TextEditingController _dateController = TextEditingController();
+  final TextEditingController _titleController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -98,10 +108,11 @@ class _EventCreationPageState extends State<EventCreationPage> {
                       const SizedBox(
                         height: 20,
                       ),
-                      const Padding(
+                      Padding(
                         padding: EdgeInsets.symmetric(horizontal: 10),
                         child: FormContainerWidget(
                           hintText: "Event Name",
+                          controller: _titleController,
                         ),
                       ),
                       Padding(
@@ -173,9 +184,13 @@ class _EventCreationPageState extends State<EventCreationPage> {
     if (_picked != null) {
       setState(() {
         _dateController.text = _picked.toString().split(" ")[0];
+        date = _picked;
       });
     }
   }
 
-  void _createEvent(List<Contact> selecContacts) {}
+  void _createEvent(List<Contact> selecContacts) {
+    String title = _titleController.text;
+    EventModel event = EventModel(title, date, _selecContacts);
+  }
 }

@@ -45,10 +45,10 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
 
   @override
   void dispose() {
+    super.dispose();
     _emailController.dispose();
     _passwordController.dispose();
     _animationController.dispose();
-    super.dispose();
   }
 
   bool _isLoading = false;
