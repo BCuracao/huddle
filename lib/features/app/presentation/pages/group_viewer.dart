@@ -76,7 +76,7 @@ class _GroupViewerState extends State<GroupViewer> {
                       borderRadius: BorderRadius.circular(25),
                       image: const DecorationImage(
                           image: ExactAssetImage(
-                              "lib\\assets\\images\\group_background_crop_1.png"),
+                              "assets/images/group_background_crop_1.png"),
                           fit: BoxFit.fill,
                           opacity: 0.35),
                     ),

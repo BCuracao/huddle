@@ -62,20 +62,20 @@ dev_dependencies:
 flutter_launcher_icons:
   android: "launcher_icon"
   ios: true
-  image_path: "lib\\assets\\images\\icons\\icon_app_icon.png"
+  image_path: "assets/images/icons/icon_app_icon.png"
   min_sdk_android: 21 # android min sdk min:16, default 21
   web:
     generate: true
-    image_path: "lib\\assets\\images\\icons\\icon_app_icon.png"
+    image_path: "assets/images/icons/icon_app_icon.png"
     background_color: "#hexcode"
     theme_color: "#hexcode"
   windows:
     generate: true
-    image_path: "lib\\assets\\images\\icons\\icon_app_icon.png"
+    image_path: "assets/images/icons/icon_app_icon.png"
     icon_size: 48 # min:48, max:256, default: 48
   macos:
     generate: true
-    image_path: "lib\\assets\\images\\icons\\icon_app_icon.png"
+    image_path: "assets/images/icons/icon_app_icon.png"
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -92,22 +92,8 @@ flutter:
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
   assets:
-    - lib\assets\images\gathering_package.png
-    - lib\assets\images\splash_image.png
-    - lib\assets\images\huddle_background_1.png
-    - lib\assets\images\huddle_background_2.png
-    - lib\assets\images\event_box_2.png
-    - lib\assets\images\huddle_background_2_nobg.png
-    - lib\assets\images\group_background_crop.png
-    - lib\assets\images\group_background_crop_1.png
-    - lib\assets\images\yellow_package.png
-    - lib\assets\images\login_background_1.png
-    - lib\assets\images\login_background_2.png
-    - lib\assets\images\login_background_3.png
-    - lib\assets\images\icons\icon_contacts_1.png
-    - lib\assets\images\icons\icon_events_1.png
-    - lib\assets\images\icons\icon_home_1.png
-    - lib\assets\images\icons\icon_app_icon.png
+    - assets/images/
+    - assets/images/icons/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

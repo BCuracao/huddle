@@ -117,8 +117,7 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
                   image: DecorationImage(
                     alignment: Alignment.topRight,
                     fit: BoxFit.contain,
-                    image: AssetImage(
-                        "lib\\assets\\images\\login_background_3.png"),
+                    image: AssetImage("assets/images/login_background_3.png"),
                   ),
                 ),
               ),

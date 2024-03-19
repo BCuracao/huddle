@@ -1,14 +1,11 @@
 import 'dart:ui';
 
 import 'package:contacts_service/contacts_service.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:huddle/features/app/presentation/pages/event_creation_page.dart';
 import 'package:huddle/features/app/presentation/widgets/global_bottom_app_bar_widget.dart';
 import 'package:huddle/global/common/custom_app_bar.dart';
 import 'package:permission_handler/permission_handler.dart';
-
-import '../../../../global/common/toast.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -52,7 +49,7 @@ class _HomePageState extends State<HomePage> {
         shape: const CircleBorder(),
         elevation: 12,
         child: Image.asset(
-          "lib\\assets\\images\\icons\\icon_events_1.png",
+          "assets/images/icons/icon_events_1.png",
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
