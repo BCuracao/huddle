@@ -75,13 +75,6 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
                     style: TextStyle(
                       fontSize: 36,
                       color: Colors.grey.shade600,
-                      shadows: const <Shadow>[
-                        Shadow(
-                          offset: Offset(0.0, 0.0),
-                          blurRadius: 0.0,
-                          color: Color.fromARGB(255, 255, 255, 255),
-                        ),
-                      ],
                     ),
                   ),
                   Padding(

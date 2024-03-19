@@ -16,7 +16,7 @@ class EventCreationPage extends StatefulWidget {
 
 class _EventCreationPageState extends State<EventCreationPage> {
   List<Contact> _availContacts = [];
-  List<Contact> _selecContacts = [];
+  final List<Contact> _selecContacts = [];
   late DateTime date;
 
   @override
@@ -109,7 +109,7 @@ class _EventCreationPageState extends State<EventCreationPage> {
                         height: 20,
                       ),
                       Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 10),
+                        padding: const EdgeInsets.symmetric(horizontal: 10),
                         child: FormContainerWidget(
                           hintText: "Event Name",
                           controller: _titleController,
@@ -175,16 +175,16 @@ class _EventCreationPageState extends State<EventCreationPage> {
   }
 
   Future<void> _selectDate() async {
-    DateTime? _picked = await showDatePicker(
+    DateTime? picked = await showDatePicker(
         context: context,
         initialDate: DateTime.now(),
         firstDate: DateTime(2024),
         lastDate: DateTime(2030));
 
-    if (_picked != null) {
+    if (picked != null) {
       setState(() {
-        _dateController.text = _picked.toString().split(" ")[0];
-        date = _picked;
+        _dateController.text = picked.toString().split(" ")[0];
+        date = picked;
       });
     }
   }

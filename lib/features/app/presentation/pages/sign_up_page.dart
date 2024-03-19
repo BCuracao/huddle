@@ -1,6 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:huddle/features/app/model/user_model.dart';
 import 'package:huddle/features/app/user_auth/firebase_auth_implementation/firebase_auth_services.dart';
 import 'package:huddle/features/app/presentation/pages/login_page.dart';
 import 'package:huddle/features/app/presentation/widgets/form_container_widget.dart';
@@ -31,6 +30,7 @@ class _SignUpPageState extends State<SignUpPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.transparent,
       appBar: AppBar(
         title: const Text("Sign Up"),
       ),
@@ -125,7 +125,7 @@ class _SignUpPageState extends State<SignUpPage> {
     User? user = await _auth.signUpWithEmailAndPassword(email, password);
     user?.updateDisplayName(_usernameController.text);
 
-    UserModel(user!.email!, user.displayName!, user.uid);
+//    UserModel(user!.email!, user.displayName!, user.uid);
 
     showToast(message: "User is successfully created");
     // ignore: use_build_context_synchronously

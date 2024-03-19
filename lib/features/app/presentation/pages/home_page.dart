@@ -86,6 +86,7 @@ class _HomePageState extends State<HomePage> {
 
   Future<void> _askPermissions() async {
     if (await Permission.contacts.request().isGranted) {
+      print("Contact permission granted.");
       // Permission is granted. Proceed to fetch contacts.
       var contacts = await ContactsService.getContacts();
 
@@ -97,6 +98,8 @@ class _HomePageState extends State<HomePage> {
         print("number of contacts: ");
         print(_contacts.length);
       });
+    } else if (await Permission.contacts.request().isPermanentlyDenied) {
+      // openAppSettings();
     }
   }
 }

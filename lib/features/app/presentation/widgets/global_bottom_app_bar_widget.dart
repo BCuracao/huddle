@@ -89,8 +89,8 @@ class _GlobalBottomAppBarWidgetState extends State<GlobalBottomAppBarWidget> {
 
   // ! Only for debugging
   void printSelectedContacts() {
-    userGroup.forEach((contact) {
+    for (var contact in userGroup) {
       print('Selected Contact: ${contact.displayName}');
-    });
+    }
   }
 }

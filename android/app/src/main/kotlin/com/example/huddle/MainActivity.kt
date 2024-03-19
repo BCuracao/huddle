@@ -1,4 +1,4 @@
-package com.example.huddle
+package com.bastian.huddle
 
 import io.flutter.embedding.android.FlutterActivity
 

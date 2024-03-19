@@ -69,7 +69,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: ((context) => LoginPage())));
+                                builder: ((context) => const LoginPage())));
                       },
                       child: Padding(
                         padding: const EdgeInsets.all(10.0),

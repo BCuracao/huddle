@@ -7,6 +7,8 @@ import 'package:huddle/features/app/presentation/pages/home_page.dart';
 import 'package:huddle/features/app/presentation/pages/login_page.dart';
 
 class App extends StatelessWidget {
+  const App({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Container(
